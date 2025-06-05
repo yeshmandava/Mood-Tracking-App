@@ -41,16 +41,16 @@ const BreathingMeditation = ({ isOpen, onClose }) => {
     setShowDurationSelect(false);
     
     // Timer countdown
-    intervalRef.current = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          setIsActive(false);
-          setShowComplete(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+      intervalRef.current = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            stopMeditation();
+            setShowComplete(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
 
     // Breathing cycle (4 seconds inhale, 2 seconds hold, 6 seconds exhale)
     // Total cycle = 12 seconds. Start with inhale at the beginning.
