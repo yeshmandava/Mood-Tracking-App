@@ -50,20 +50,25 @@ const Analytics = ({ moodData }) => {
     
     // Group data by date for line and bar charts
     const groupedByDate = filteredData.reduce((acc, entry) => {
-      const date = format(new Date(entry.date), 'MMM d');
-      if (!acc[date]) {
-        acc[date] = { date, moods: [], total: 0, count: 0 };
+      const dateObj = new Date(entry.date);
+      const key = format(dateObj, 'yyyy-MM-dd');
+      if (!acc[key]) {
+        acc[key] = { dateObj, total: 0, count: 0 };
       }
-      acc[date].moods.push(entry.mood.value);
-      acc[date].total += entry.mood.value;
-      acc[date].count += 1;
+      acc[key].total += entry.mood.value;
+      acc[key].count += 1;
       return acc;
     }, {});
-    
-    return Object.values(groupedByDate).map(day => ({
-      ...day,
-      average: Math.round((day.total / day.count) * 10) / 10
-    })).sort((a, b) => new Date(a.date + ', 2024') - new Date(b.date + ', 2024'));
+
+    return Object.keys(groupedByDate)
+      .sort()
+      .map(key => {
+        const day = groupedByDate[key];
+        return {
+          date: format(day.dateObj, 'MMM d'),
+          average: Math.round((day.total / day.count) * 10) / 10
+        };
+      });
   }, [filteredData]);
 
   const pieData = useMemo(() => {
