@@ -99,8 +99,8 @@ const deleteJournalEntry = id => {
       <header className="app-header">
         <div className="header-content">
           <div className="logo">
-            <div className="logo-emoji">🧠</div>
-            <h1>MindFlow</h1>
+            <span role="img" aria-label="banana" className="logo-emoji">🍌</span>
+            <h1>Minion's Daily Report</h1>
           </div>
           
           <nav className="nav-tabs">

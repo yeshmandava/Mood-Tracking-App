@@ -3,6 +3,6 @@ import App from './App';
 
 test('renders app header', () => {
   render(<App />);
-  const headerElement = screen.getByText(/MindFlow/i);
+  const headerElement = screen.getByText(/Minion's Daily Report/i);
   expect(headerElement).toBeInTheDocument();
 });
