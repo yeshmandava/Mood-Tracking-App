@@ -53,22 +53,40 @@ function App() {
     setMoodData(prev => [...prev, newEntry]);
   };
 
-  const addJournalEntry = (title, content) => {
-    const newEntry = {
-      id: Date.now(),
-      date: new Date().toISOString(),
-      title,
-      content
-    };
-    setJournalEntries(prev => [...prev, newEntry]);
+const addJournalEntry = (title, content, name) => {
+  const newEntry = {
+    id: Date.now(),
+    date: new Date().toISOString(),
+    title,
+    content,
+    name
   };
+  setJournalEntries(prev => [...prev, newEntry]);
+};
+
+const updateJournalEntry = (id, updatedFields) => {
+  setJournalEntries(prev =>
+    prev.map(entry => (entry.id === id ? { ...entry, ...updatedFields } : entry))
+  );
+};
+
+const deleteJournalEntry = id => {
+  setJournalEntries(prev => prev.filter(entry => entry.id !== id));
+};
 
   const renderContent = () => {
     switch (activeTab) {
       case 'mood':
         return <MoodLogger onAddMood={addMoodEntry} />;
       case 'journal':
-        return <Journal entries={journalEntries} onAddEntry={addJournalEntry} />;
+        return (
+          <Journal
+            entries={journalEntries}
+            onAddEntry={addJournalEntry}
+            onUpdateEntry={updateJournalEntry}
+            onDeleteEntry={deleteJournalEntry}
+          />
+        );
       case 'analytics':
         return <Analytics moodData={moodData} />;
       default:

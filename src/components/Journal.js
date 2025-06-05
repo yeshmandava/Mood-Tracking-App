@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import { PlusCircle, BookOpen, Calendar, Edit3, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 
-const Journal = ({ entries, onAddEntry }) => {
+const Journal = ({ entries, onAddEntry, onUpdateEntry, onDeleteEntry }) => {
   const [isWriting, setIsWriting] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [name, setName] = useState('');
   const [expandedEntry, setExpandedEntry] = useState(null);
+  const [editingId, setEditingId] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim() && content.trim()) {
-      onAddEntry(title, content);
+      if (editingId) {
+        onUpdateEntry(editingId, { title, content, name });
+      } else {
+        onAddEntry(title, content, name);
+      }
       setTitle('');
       setContent('');
+      setName('');
+      setEditingId(null);
       setIsWriting(false);
     }
   };
@@ -57,6 +65,18 @@ const Journal = ({ entries, onAddEntry }) => {
           <div className="journal-editor">
             <form onSubmit={handleSubmit} className="entry-form">
               <div className="form-group">
+                <label htmlFor="name" className="form-label">Your Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Who is writing this?"
+                  className="title-input"
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="title" className="form-label">
                   Entry Title
                 </label>
@@ -92,6 +112,8 @@ const Journal = ({ entries, onAddEntry }) => {
                     setIsWriting(false);
                     setTitle('');
                     setContent('');
+                    setName('');
+                    setEditingId(null);
                   }}
                   className="cancel-button"
                 >
@@ -125,9 +147,34 @@ const Journal = ({ entries, onAddEntry }) => {
                   <div key={entry.id} className="journal-entry">
                     <div className="entry-header" onClick={() => toggleEntry(entry.id)}>
                       <h3 className="entry-title">{entry.title}</h3>
+                      <span className="entry-name">{entry.name}</span>
                       <div className="entry-meta">
                         <Calendar size={14} />
                         <span>{formatDate(entry.date)}</span>
+                        <button
+                          type="button"
+                          className="icon-button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsWriting(true);
+                            setEditingId(entry.id);
+                            setTitle(entry.title);
+                            setContent(entry.content);
+                            setName(entry.name || '');
+                          }}
+                        >
+                          <Edit3 size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          className="icon-button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDeleteEntry(entry.id);
+                          }}
+                        >
+                          <Trash2 size={14} />
+                        </button>
                       </div>
                     </div>
                     
