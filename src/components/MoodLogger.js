@@ -109,9 +109,9 @@ const MoodLogger = ({ onAddMood }) => {
         )}
       </div>
 
-      <BreathingMeditation 
-        isOpen={showBreathing} 
-        onClose={() => setShowBreathing(false)} 
+      <BreathingMeditation
+        isOpen={showBreathing}
+        onClose={() => setShowBreathing(false)}
       />
     </div>
   );

@@ -114,6 +114,8 @@ body {
   flex-shrink: 0;
 }
 
+
+
 .logo-emoji {
   font-size: 2rem;
   margin-right: 0.75rem;
@@ -215,6 +217,7 @@ body {
 
 /* Mood Logger Styles */
 .mood-logger {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-start;
