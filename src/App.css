@@ -633,6 +633,24 @@ body {
   font-size: 0.875rem;
 }
 
+.entry-name {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0 0.25rem;
+}
+
+.icon-button:hover {
+  color: var(--color-primary);
+}
+
 .entry-content {
   color: var(--color-text-secondary);
   line-height: 1.7;
