@@ -1,6 +1,10 @@
 {
   "version": 2,
-  "name": "mindflow-mood-tracker",
+  "build": {
+    "env": {
+      "CI": "false"
+    }
+  },
   "builds": [
     {
       "src": "package.json",
