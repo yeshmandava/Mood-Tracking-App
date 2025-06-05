@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Smile, Frown, Meh, Angry, Heart, Star, CheckCircle, Wind } from 'lucide-react';
 import BreathingMeditation from './BreathingMeditation';
+import IdleMinions from './IdleMinions';
 
 const MoodLogger = ({ onAddMood }) => {
   const [selectedMood, setSelectedMood] = useState(null);
@@ -109,10 +110,11 @@ const MoodLogger = ({ onAddMood }) => {
         )}
       </div>
 
-      <BreathingMeditation 
-        isOpen={showBreathing} 
-        onClose={() => setShowBreathing(false)} 
+      <BreathingMeditation
+        isOpen={showBreathing}
+        onClose={() => setShowBreathing(false)}
       />
+      <IdleMinions />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-# 🧠 MindFlow - Mood Tracking App
+# Minion's Daily Report - Mood Tracking App
 
 https://mood-tracking-e309krrmj-yeshs-projects-be811dd8.vercel.app/
 
